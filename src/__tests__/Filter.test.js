@@ -13,7 +13,7 @@ const testData = [
 ];
 
 // Filter
-const noop = () => {};
+const noop = () => { };
 test("uses a prop of 'search' to display the search term in the input field", () => {
   render(<Filter search="testing" onSearchChange={noop} />);
 
