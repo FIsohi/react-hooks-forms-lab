@@ -1,32 +1,24 @@
 import React, { useState } from "react";
-import ItemForm from "./ItemForm";
-import Filter from "./Filter";
-import Item from "./Item";
 
-function ShoppingList({ items }) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+function Item({ name, category }) {
+    const [isInCart, setIsInCart] = useState(false);
 
-  function handleCategoryChange(event) {
-    setSelectedCategory(event.target.value);
-  }
+    function handleAddToCartClick() {
+        setIsInCart((isInCart) => !isInCart);
+    }
 
-  const itemsToDisplay = items.filter((item) => {
-    if (selectedCategory === "All") return true;
-
-    return item.category === selectedCategory;
-  });
-
-  return (
-    <div className="ShoppingList">
-      <ItemForm />
-      <Filter onCategoryChange={handleCategoryChange} />
-      <ul className="Items">
-        {itemsToDisplay.map((item) => (
-          <Item key={item.id} name={item.name} category={item.category} />
-        ))}
-      </ul>
-    </div>
-  );
+    return (
+        <li className={isInCart ? "in-cart" : ""}>
+            <span>{name}</span>
+            <span className="category">{category}</span>
+            <button
+                className={isInCart ? "remove" : "add"}
+                onClick={handleAddToCartClick}
+            >
+                {isInCart ? "Remove From" : "Add to"} Cart
+            </button>
+        </li>
+    );
 }
 
 export default Item;
